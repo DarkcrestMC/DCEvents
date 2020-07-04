@@ -1,0 +1,28 @@
+name: DCEvents
+version: ${project.version}
+main: com.Jacksonnn.DCEvents.DCEvents
+api-version: 1.13
+authors: [Jacksonnn]
+description: Made for DarkcrestMC's Events Hosted By Their Staff Team
+website: darkcrestmc.net
+commands:
+  dcevents:
+    aliases: [events, dce, darkcrestevents, darkcreste, event]
+    usage: /<command>
+  tournament:
+    aliases: [tourny, tourney, btournament, bendingtournament]
+permissions:
+  DCCore.AllowEvents:
+    default: op
+    children:
+      DCCore.broadcast: true
+      DCEvents.Host.AddPlayer: true
+      DCEvents.Host.Broadcast: true
+      DCEvents.Host.Countdown: true
+      DCEvents.Host.EndEvent: true
+      DCEvents.Help: true
+      DCEvents.Host.EventInfo: true
+      DCEvents.Host.ListEvents: true
+      DCEvents.Host.RemovePlayer: true
+      DCEvents.Host.StartEvent: true
+      DCEvents.Host.Teleport: true
