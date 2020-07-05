@@ -40,6 +40,7 @@ public class EventCommand implements CommandExecutor {
         subCommands.add(new Remove());
         subCommands.add(new Start());
         subCommands.add(new Teleport());
+        subCommands.add(new Reload());
     }
 
     @Override

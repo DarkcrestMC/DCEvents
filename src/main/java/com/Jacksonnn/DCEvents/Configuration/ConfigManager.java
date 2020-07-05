@@ -62,6 +62,7 @@ public class ConfigManager {
             config.addDefault("Events.CommandDescriptions.Broadcast", "Uses the [EventBroadcast] chat function.");
             config.addDefault("Events.CommandDescriptions.Help", "Shows all possible commands and their arguments.");
             config.addDefault("Events.CommandDescriptions.Teleport", "Teleports all active players in an event to the executor.");
+            config.addDefault("Events.CommandDescriptions.ReloadCommand", "Reloads configuration files into the active instance of the plugin.");
 
             langConfig.save();
         }
