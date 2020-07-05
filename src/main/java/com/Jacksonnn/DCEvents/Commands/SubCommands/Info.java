@@ -62,17 +62,19 @@ public class Info implements EventSubCommand {
             return;
         }
 
-        String eventType = event.getEventType().toString();
+        String eventType;
 
         if (event.getEventType() instanceof Tournament) {
             eventType = "Tournament";
+        } else if (event.getEventType() == null){
+            eventType = "Event";
         } else {
             eventType = "Event";
         }
 
         sender.sendMessage(eventPrefix + "Information for the " + ChatColor.BOLD + event.getEventName() + ChatColor.YELLOW + " event:");
         sender.sendMessage(ChatColor.GRAY + "Event Name: " + ChatColor.GREEN + event.getEventName() + ChatColor.GRAY + " | EventHost: " + ChatColor.GREEN + event.getEventStaff());
-        sender.sendMessage(ChatColor.GRAY + "Event Type: " + ChatColor.GREEN + eventType + ChatColor.GRAY + "| Players (" + ChatColor.GREEN + event.getEventPlayers().size() + ChatColor.GRAY + "):");
+        sender.sendMessage(ChatColor.GRAY + "Event Type: " + ChatColor.GREEN + eventType + ChatColor.GRAY + " | Players (" + ChatColor.GREEN + event.getEventPlayers().size() + ChatColor.GRAY + "):");
 
         String eventPlayers = ChatColor.GREEN + " ";
         for (EventPlayer player : event.getEventPlayers()) {

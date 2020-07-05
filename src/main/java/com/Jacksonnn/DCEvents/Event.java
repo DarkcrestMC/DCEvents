@@ -22,6 +22,7 @@ public class Event {
         this.pos = pos;
 
         GeneralMethods.events.add(this);
+        eventType = this;
     }
 
     public String getEventName() {
