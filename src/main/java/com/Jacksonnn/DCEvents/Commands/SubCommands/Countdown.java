@@ -3,6 +3,7 @@ package com.Jacksonnn.DCEvents.Commands.SubCommands;
 import com.Jacksonnn.DCEvents.Commands.EventSubCommand;
 import com.Jacksonnn.DCEvents.Configuration.ConfigManager;
 import com.Jacksonnn.DCEvents.DCEvents;
+import com.Jacksonnn.DCEvents.GeneralMethods;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 
@@ -46,12 +47,12 @@ public class Countdown implements EventSubCommand {
     public void execute(CommandSender sender, List<String> args) {
         int num;
         if (args.size() < 1) {
-            sender.sendMessage(ChatColor.RED + "Usage: /countdown <seconds>");
+            sender.sendMessage(GeneralMethods.eventPrefix + "Error! " + getProperUse());
         }
         try {
             num = Integer.parseInt(args.get(0));
         } catch (NumberFormatException e) {
-            sender.sendMessage(ChatColor.RED + args.get(0) + " is not a number!");
+            sender.sendMessage(GeneralMethods.eventPrefix + "Error! " + args.get(0) + " is not a number!");
             num = 0;
         }
 
