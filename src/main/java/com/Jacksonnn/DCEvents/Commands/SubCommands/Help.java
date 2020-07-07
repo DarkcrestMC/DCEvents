@@ -53,5 +53,6 @@ public class Help implements EventSubCommand {
         sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events remove <eventName> <player(s)>");
         sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events start <eventName> [<type>]");
         sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events teleport <eventName>");
+        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events reload");
     }
 }

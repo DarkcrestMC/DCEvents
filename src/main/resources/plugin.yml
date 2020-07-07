@@ -26,3 +26,4 @@ permissions:
       DCEvents.Host.RemovePlayer: true
       DCEvents.Host.StartEvent: true
       DCEvents.Host.Teleport: true
+      DCEvents.Admin.Reload: true

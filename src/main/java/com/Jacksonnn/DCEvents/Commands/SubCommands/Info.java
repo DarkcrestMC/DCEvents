@@ -4,6 +4,7 @@ import com.Jacksonnn.DCEvents.Commands.EventSubCommand;
 import com.Jacksonnn.DCEvents.Configuration.ConfigManager;
 import com.Jacksonnn.DCEvents.Event;
 import com.Jacksonnn.DCEvents.EventPlayer.EventPlayer;
+import com.Jacksonnn.DCEvents.Games.Tournament.Tournament;
 import com.Jacksonnn.DCEvents.GeneralMethods;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -61,9 +62,19 @@ public class Info implements EventSubCommand {
             return;
         }
 
+        String eventType;
+
+        if (event.getEventType() instanceof Tournament) {
+            eventType = "Tournament";
+        } else if (event.getEventType() == null){
+            eventType = "Event";
+        } else {
+            eventType = "Event";
+        }
+
         sender.sendMessage(eventPrefix + "Information for the " + ChatColor.BOLD + event.getEventName() + ChatColor.YELLOW + " event:");
         sender.sendMessage(ChatColor.GRAY + "Event Name: " + ChatColor.GREEN + event.getEventName() + ChatColor.GRAY + " | EventHost: " + ChatColor.GREEN + event.getEventStaff());
-        sender.sendMessage(ChatColor.GRAY + "Players (" + ChatColor.GREEN + event.getEventPlayers().size() + ChatColor.GRAY + "):");
+        sender.sendMessage(ChatColor.GRAY + "Event Type: " + ChatColor.GREEN + eventType + ChatColor.GRAY + " | Players (" + ChatColor.GREEN + event.getEventPlayers().size() + ChatColor.GRAY + "):");
 
         String eventPlayers = ChatColor.GREEN + " ";
         for (EventPlayer player : event.getEventPlayers()) {
