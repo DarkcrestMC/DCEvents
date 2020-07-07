@@ -124,4 +124,8 @@ public class Event {
     public Location getPOS() {
         return this.pos;
     }
+
+    public void remove() {
+        GeneralMethods.removeEvent(this);
+    }
 }
