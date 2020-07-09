@@ -4,6 +4,7 @@ import com.Jacksonnn.DCEvents.Commands.CountdownHandler;
 import com.Jacksonnn.DCEvents.Commands.EventCommand;
 import com.Jacksonnn.DCEvents.Configuration.ConfigManager;
 import com.Jacksonnn.DCEvents.Games.Tournament.Commands;
+import com.Jacksonnn.DCEvents.PlayerEvents.PlayerInteractWithBlockEvent;
 import com.Jacksonnn.DCEvents.PlayerEvents.PlayerKillEvent;
 import com.Jacksonnn.DCEvents.PlayerEvents.PlayerLeaveEvent;
 import org.bukkit.Bukkit;
@@ -30,6 +31,7 @@ public final class DCEvents extends JavaPlugin {
         //EVENTS LISTENERS
         pm.registerEvents(new PlayerKillEvent(), this);
         pm.registerEvents(new PlayerLeaveEvent(), this);
+        pm.registerEvents(new PlayerInteractWithBlockEvent(), this);
 
         new ConfigManager();
 
