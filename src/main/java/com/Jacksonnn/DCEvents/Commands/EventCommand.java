@@ -41,6 +41,7 @@ public class EventCommand implements CommandExecutor {
         subCommands.add(new Start());
         subCommands.add(new Teleport());
         subCommands.add(new Reload());
+        subCommands.add(new Join());
     }
 
     @Override
@@ -52,7 +53,7 @@ public class EventCommand implements CommandExecutor {
                         if (sender.hasPermission(subCommand.getPermission())) {
                             subCommand.execute(sender, buildArguments(args));
                         } else {
-                            sender.sendMessage(GeneralMethods.eventPrefix + "Insufficient permission to execute this command. (Step 2)");
+                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Insufficient permission to execute this command. (Step 2)");
                         }
                     }
                 }
@@ -60,7 +61,7 @@ public class EventCommand implements CommandExecutor {
                 new Help().execute(sender, buildArguments(args));
             }
         } else {
-            sender.sendMessage(GeneralMethods.eventPrefix + "Insufficient permission to execute these commands. (Step 1)");
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Insufficient permission to execute these commands. (Step 1)");
         }
         return true;
     }

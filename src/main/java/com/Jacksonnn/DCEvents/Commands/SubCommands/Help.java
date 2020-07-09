@@ -42,7 +42,7 @@ public class Help implements EventSubCommand {
     @Override
     public void execute(CommandSender sender, List<String> args) {
         //  /events help
-        sender.sendMessage(GeneralMethods.eventPrefix + "Event Commands: ");
+        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Event Commands: ");
         sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events add <eventName> <player(s)>");
         sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events broadcast <message>");
         sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events countdown <seconds>");
@@ -54,5 +54,6 @@ public class Help implements EventSubCommand {
         sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events start <eventName> [<type>]");
         sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events teleport <eventName>");
         sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events reload");
+        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events join <eventName>");
     }
 }

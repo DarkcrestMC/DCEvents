@@ -10,13 +10,13 @@ import java.util.ArrayList;
 
 public class Event {
     String eventName;
-    String eventStaff;
+    Player eventStaff;
     Object eventType;
     Location pos;
 
     ArrayList<EventPlayer> eventPlayers = new ArrayList<>();
 
-    public Event(String name, String staff, Location pos) {
+    public Event(String name, Player staff, Location pos) {
         this.eventName = name;
         this.eventStaff = staff;
         this.pos = pos;
@@ -29,7 +29,7 @@ public class Event {
         return eventName;
     }
 
-    public String getEventStaff() {
+    public Player getEventStaff() {
         return eventStaff;
     }
 
@@ -51,22 +51,25 @@ public class Event {
     }
 
     public void addPlayer(CommandSender sender, String name) {
-        EventPlayer player = new EventPlayer(eventPlayers.size() + 1, Bukkit.getPlayer(name));
-        if (eventPlayers.contains(player)) {
-            sender.sendMessage(GeneralMethods.eventPrefix + "Player" + name + " has already joined the event!");
-        } else {
-            eventPlayers.add(player);
-            sender.sendMessage(GeneralMethods.eventPrefix + name + " has joined the event, " + this.getEventName() + ".");
-            player.getPlayer().sendMessage(GeneralMethods.eventPrefix + "You have been signed up for the " + getEventName() + " event hosted by " + getEventStaff() + ".");
+        for (EventPlayer ePlayer : this.getEventPlayers()) {
+            if (ePlayer.getPlayer().getName().equalsIgnoreCase(name)) {
+                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! Player is already apart of event...");
+                return;
+            }
         }
+
+        EventPlayer player = new EventPlayer(eventPlayers.size() + 1, Bukkit.getPlayer(name));
+        eventPlayers.add(player);
+        sender.sendMessage(GeneralMethods.getEventsPrefix() + name + " has joined the event, " + this.getEventName() + ".");
+        player.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You have been signed up for the " + getEventName() + " event hosted by " + getEventStaff() + ".");
     }
 
     public void addPlayer(CommandSender sender, EventPlayer player) {
         if (eventPlayers.contains(player)) {
-            sender.sendMessage(GeneralMethods.eventPrefix + "Player" + player.getName() + " has already joined the event!");
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Player" + player.getName() + " has already joined the event!");
         } else {
             eventPlayers.add(player);
-            player.getPlayer().sendMessage(GeneralMethods.eventPrefix + "You have been signed up for the " + getEventName() + " event hosted by " + getEventStaff() + ".");
+            player.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You have been signed up for the " + getEventName() + " event hosted by " + getEventStaff() + ".");
         }
     }
 
@@ -74,10 +77,10 @@ public class Event {
         EventPlayer player = getEventPlayer(name);
         if (player != null) {
             eventPlayers.remove(player);
-            sender.sendMessage(GeneralMethods.eventPrefix + name + " has left the event, " + this.getEventName() + ".");
-            player.getPlayer().sendMessage(GeneralMethods.eventPrefix + "You have been removed from the " + getEventName() + " event.");
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + name + " has left the event, " + this.getEventName() + ".");
+            player.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You have been removed from the " + getEventName() + " event.");
         } else {
-            sender.sendMessage(GeneralMethods.eventPrefix + "Player" + name + " is not apart of this event!");
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Player" + name + " is not apart of this event!");
         }
     }
 
@@ -85,19 +88,19 @@ public class Event {
 
         if (eventPlayers.contains(player)) {
             eventPlayers.remove(player);
-            player.getPlayer().sendMessage(GeneralMethods.eventPrefix + "You have been removed from the " + getEventName() + " event.");
+            player.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You have been removed from the " + getEventName() + " event.");
         } else {
-            sender.sendMessage(GeneralMethods.eventPrefix + "Player" + player.getName() + " is not apart of this event!");
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Player" + player.getName() + " is not apart of this event!");
         }
     }
 
     public void removePlayer(EventPlayer player) {
         if (this.eventPlayers.contains(player)) {
             this.eventPlayers.remove(player);
-            player.getPlayer().sendMessage(GeneralMethods.eventPrefix + "You have been removed from the " + getEventName() + " event.");
-            Bukkit.getServer().getLogger().info(GeneralMethods.eventPrefix + "Successfully removed player, " + player.getName() + ", from event, " + eventName);
+            player.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You have been removed from the " + getEventName() + " event.");
+            Bukkit.getServer().getLogger().info(GeneralMethods.getEventsPrefix() + "Successfully removed player, " + player.getName() + ", from event, " + eventName);
         } else {
-            Bukkit.getServer().getLogger().info(GeneralMethods.eventPrefix + "Player" + player.getName() + " is not apart of any events.");
+            Bukkit.getServer().getLogger().info(GeneralMethods.getEventsPrefix() + "Player" + player.getName() + " is not apart of any events.");
         }
     }
 
@@ -109,7 +112,7 @@ public class Event {
         this.eventType = type;
     }
 
-    public void setHost(String staff) {
+    public void setHost(Player staff) {
         this.eventStaff = staff;
     }
 

@@ -15,18 +15,18 @@ public class BlockParty extends Event {
     private final BlockPartyRunnable runnable;
     private boolean isRunning = false;
 
-    public BlockParty(String name, String staff, Location pos) {
+    public BlockParty(String name, Player staff, Location pos) {
         super(name, staff, pos);
         runnable = new BlockPartyRunnable(this);
     }
 
     public void clickedSign(Player staffMember, Sign sign) {
         if (isRunning) {
-            staffMember.sendMessage(GeneralMethods.eventPrefix + "Error! Your Block Party event is already running.");
+            staffMember.sendMessage(GeneralMethods.getEventsPrefix() + "Error! Your Block Party event is already running.");
             return;
         }
         if (getEventPlayers().size() < 2) {
-            staffMember.sendMessage(GeneralMethods.eventPrefix + "Error! You need at least 2 players to play Block Party." +
+            staffMember.sendMessage(GeneralMethods.getEventsPrefix() + "Error! You need at least 2 players to play Block Party." +
                     " Use '/events add " + getEventName() + " [player name]' to add a player to your event.");
             return;
         }
@@ -46,7 +46,7 @@ public class BlockParty extends Event {
             isRunning = true;
             runnable.runTaskTimer(DCEvents.getDCEvents(), 1, 1);
         } catch (Exception e) {
-            staffMember.sendMessage(GeneralMethods.eventPrefix + "Error! The sign could not be parsed. Ensure that" +
+            staffMember.sendMessage(GeneralMethods.getEventsPrefix() + "Error! The sign could not be parsed. Ensure that" +
                     " the second and third lines are the block coordinates of the corners. The numbers should NOT have" +
                     " commas and should be separated by spaces. For example: '32 64 -1644'");
         }

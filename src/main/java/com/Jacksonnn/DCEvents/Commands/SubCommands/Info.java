@@ -50,7 +50,7 @@ public class Info implements EventSubCommand {
         //  /events info <eventName>
 
         if (args.size() == 0) {
-            sender.sendMessage(eventPrefix + this.getProperUse());
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + this.getProperUse());
             return;
         }
 
@@ -58,7 +58,7 @@ public class Info implements EventSubCommand {
         Event event = GeneralMethods.getEvent(reqEvent);
 
         if (event == null) {
-            sender.sendMessage(eventPrefix + "There is no event by the name of " + reqEvent + ".");
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by the name of " + reqEvent + ".");
             return;
         }
 
@@ -72,7 +72,7 @@ public class Info implements EventSubCommand {
             eventType = "Event";
         }
 
-        sender.sendMessage(eventPrefix + "Information for the " + ChatColor.BOLD + event.getEventName() + ChatColor.YELLOW + " event:");
+        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Information for the " + ChatColor.BOLD + event.getEventName() + ChatColor.YELLOW + " event:");
         sender.sendMessage(ChatColor.GRAY + "Event Name: " + ChatColor.GREEN + event.getEventName() + ChatColor.GRAY + " | EventHost: " + ChatColor.GREEN + event.getEventStaff());
         sender.sendMessage(ChatColor.GRAY + "Event Type: " + ChatColor.GREEN + eventType + ChatColor.GRAY + " | Players (" + ChatColor.GREEN + event.getEventPlayers().size() + ChatColor.GRAY + "):");
 
@@ -81,7 +81,7 @@ public class Info implements EventSubCommand {
             eventPlayers += player.getName() + ChatColor.GRAY + ", " + ChatColor.GREEN;
         }
 
-        eventPlayers += ChatColor.BLUE + event.getEventStaff();
+        eventPlayers += ChatColor.BLUE + event.getEventStaff().getName();
 
         sender.sendMessage(eventPlayers);
     }

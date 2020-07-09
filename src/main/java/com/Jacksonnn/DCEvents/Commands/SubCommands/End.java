@@ -49,14 +49,14 @@ public class End implements EventSubCommand {
             Event event = GeneralMethods.getEvent(reqEvent);
 
             if (event == null) {
-                sender.sendMessage(GeneralMethods.eventPrefix + "Error! That is not an active event. Check the list to confirm.");
+                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! That is not an active event. Check the list to confirm.");
                 return;
             }
 
             event.remove();
-            sender.sendMessage(GeneralMethods.eventPrefix + "Successfully terminated the event.");
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully terminated the event.");
         } else {
-            sender.sendMessage(GeneralMethods.eventPrefix + "Error! " + getProperUse());
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + getProperUse());
         }
     }
 }
