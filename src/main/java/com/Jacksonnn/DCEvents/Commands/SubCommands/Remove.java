@@ -50,14 +50,14 @@ public class Remove implements EventSubCommand {
             Event reqEvent = GeneralMethods.getEvent(eventName);
 
             if (reqEvent == null) {
-                sender.sendMessage(GeneralMethods.eventPrefix + "Error! There is no event by the name of " + eventName + ".");
+                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! There is no event by the name of " + eventName + ".");
                 return;
             }
             for (String player : args) {
                 reqEvent.removePlayer(sender, player);
             }
          } else {
-             sender.sendMessage(GeneralMethods.eventPrefix + "Error! " + getProperUse());
+             sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + getProperUse());
          }
     }
 }

@@ -24,13 +24,13 @@ public class PlayerInteractWithBlockEvent implements Listener {
                 for (Event event : GeneralMethods.getEvents()) {
                     if (event instanceof BlockParty) {
                         BlockParty blockParty = (BlockParty)event;
-                        if (e.getPlayer().getName().equalsIgnoreCase(blockParty.getEventStaff())) {
+                        if (e.getPlayer() == blockParty.getEventStaff()) {
                             blockParty.clickedSign(e.getPlayer(), sign);
                             return;
                         }
                     }
                 }
-                e.getPlayer().sendMessage(GeneralMethods.eventPrefix +
+                e.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() +
                         "Error! You are not hosting an event by the type 'BlockParty,'");
             }
         }

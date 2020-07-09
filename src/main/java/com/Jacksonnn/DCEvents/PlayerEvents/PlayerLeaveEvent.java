@@ -2,6 +2,7 @@ package com.Jacksonnn.DCEvents.PlayerEvents;
 
 import com.Jacksonnn.DCEvents.Event;
 import com.Jacksonnn.DCEvents.EventPlayer.EventPlayer;
+import com.Jacksonnn.DCEvents.Games.Tournament.Tournament;
 import com.Jacksonnn.DCEvents.GeneralMethods;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +18,13 @@ public class PlayerLeaveEvent implements Listener {
         for (Event event : GeneralMethods.events) {
             for (EventPlayer eventPlayer : event.getEventPlayers()) {
                 if (eventPlayer.getPlayer() == player) {
+
+                    if (GeneralMethods.isTournament(event)) {
+                        eventPlayer.getPlayer().teleport(((Tournament) event).getSpectator());
+                    } else {
+                        eventPlayer.getPlayer().teleport(event.getPOS());
+                    }
+                    
                     event.removePlayer(eventPlayer);
                 }
             }

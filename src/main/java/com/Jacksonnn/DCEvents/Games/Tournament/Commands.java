@@ -69,8 +69,8 @@ public class Commands implements CommandExecutor {
                         double spectatorZ = defaultConfig.getDouble("Events.Tournament.Spectator.z");
                         Location spectator = new Location(Bukkit.getWorld(spectatorWorld), spectatorX, spectatorY, spectatorZ);
 
-                        new Tournament(tournyName, sender.getName(), pos1, pos2, spectator);
-                        sender.sendMessage(GeneralMethods.eventPrefix + "Successfully created new tournament, " + tournyName + ".");
+                        new Tournament(tournyName, (Player) sender, pos1, pos2, spectator);
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully created new tournament, " + tournyName + ".");
 
                         ArrayList<String> broadcastArgs = new ArrayList<>();
 
@@ -83,22 +83,22 @@ public class Commands implements CommandExecutor {
                         new Broadcast().execute(sender, broadcastArgs);
 
                     } else {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "You should name your tournament...");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "You should name your tournament...");
                     }
                 } else if (args[0].equalsIgnoreCase("end")) {
                     Event event = null;
                     try {
                         event = GeneralMethods.getEvent(args[1]);
                     } catch (Exception e) {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "There is no event by that name.");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by that name.");
                         e.printStackTrace();
                     }
 
                     if (GeneralMethods.isTournament(event)) {
                         GeneralMethods.removeEvent(event);
-                        sender.sendMessage(GeneralMethods.eventPrefix + "Successfully ended the tournament.");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully ended the tournament.");
                     } else {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "That event isn't a tournament!!");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "That event isn't a tournament!!");
                     }
 
                 } else if (args[0].equalsIgnoreCase("list")) {
@@ -116,7 +116,7 @@ public class Commands implements CommandExecutor {
                             try {
                                 event = GeneralMethods.getEvent(tournamentName);
                             } catch (Exception e) {
-                                sender.sendMessage(GeneralMethods.eventPrefix + "There is no event by that name.");
+                                sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by that name.");
                                 e.printStackTrace();
                             }
 
@@ -124,17 +124,17 @@ public class Commands implements CommandExecutor {
                                 Tournament tournament = (Tournament) event;
 
                                 String eventPlayers = ChatColor.GREEN + " ";
-                                sender.sendMessage(GeneralMethods.eventPrefix + "Participants in " + tournament.getName() + " (" + tournament.getPlayers().size() + "):");
+                                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Participants in " + tournament.getName() + " (" + tournament.getPlayers().size() + "):");
                                 for (EventPlayer ePlayer : tournament.getPlayers()) {
                                     eventPlayers += ChatColor.GREEN + ePlayer.getName() + ", ";
                                 }
 
-                                eventPlayers += ChatColor.BLUE + tournament.getTournamentHost();
+                                eventPlayers += ChatColor.BLUE + tournament.getTournamentHost().getName();
 
                                 sender.sendMessage(eventPlayers);
 
                             } else {
-                                sender.sendMessage(GeneralMethods.eventPrefix + "That event isn't a tournament!!");
+                                sender.sendMessage(GeneralMethods.getEventsPrefix() + "That event isn't a tournament!!");
                             }
                         }
                     } else {
@@ -146,7 +146,7 @@ public class Commands implements CommandExecutor {
                         }
 
                         String tournamentList = ChatColor.GREEN + " ";
-                        sender.sendMessage(GeneralMethods.eventPrefix + "Active Tournaments:");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Active Tournaments:");
 
                         for (Tournament t : tournaments) {
                             tournamentList += t.getName() + ChatColor.BLUE + " (" + t.getTournamentHost() + ")" + ChatColor.GREEN + ", ";
@@ -161,7 +161,7 @@ public class Commands implements CommandExecutor {
                     try {
                         event = GeneralMethods.getEvent(tournamentName);
                     } catch (Exception e) {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "There is no event by that name.");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by that name.");
                         e.printStackTrace();
                     }
 
@@ -179,14 +179,14 @@ public class Commands implements CommandExecutor {
                                 }
                             }
 
-                            sender.sendMessage(GeneralMethods.eventPrefix + "Successfully added player(s) to tournament, " + tournament.getName() + ".");
+                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully added player(s) to tournament, " + tournament.getName() + ".");
 
                         } catch (Exception e) {
-                            sender.sendMessage(GeneralMethods.eventPrefix + "There is an incorrect player name...");
+                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is an incorrect player name...");
                             e.printStackTrace();
                         }
                     } else {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "That event isn't a tournament!!");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "That event isn't a tournament!!");
                     }
                 } else if (args[0].equalsIgnoreCase("removeplayer")) {
                     String tournamentName = args[1];
@@ -194,7 +194,7 @@ public class Commands implements CommandExecutor {
                     try {
                         event = GeneralMethods.getEvent(tournamentName);
                     } catch (Exception e) {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "There is no event by that name.");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by that name.");
                         e.printStackTrace();
                     }
 
@@ -212,13 +212,13 @@ public class Commands implements CommandExecutor {
                                 }
                             }
 
-                            sender.sendMessage(GeneralMethods.eventPrefix + "Successfully removed player(s) to tournament, " + tournament.getName() + ".");
+                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully removed player(s) to tournament, " + tournament.getName() + ".");
                         } catch (Exception e) {
-                            sender.sendMessage(GeneralMethods.eventPrefix + "There is an incorrect player name...");
+                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is an incorrect player name...");
                             e.printStackTrace();
                         }
                     } else {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "That event isn't a tournament!!");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "That event isn't a tournament!!");
                     }
                 } else if (args[0].equalsIgnoreCase("setSpectator")) {
                     String tournamentName = args[1];
@@ -226,7 +226,7 @@ public class Commands implements CommandExecutor {
                     try {
                         event = GeneralMethods.getEvent(tournamentName);
                     } catch (Exception e) {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "There is no event by that name.");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by that name.");
                         e.printStackTrace();
                     }
 
@@ -238,9 +238,9 @@ public class Commands implements CommandExecutor {
                         Location pSenderLoc = pSender.getLocation();
 
                         tournament.setSpectator(pSenderLoc);
-                        sender.sendMessage(GeneralMethods.eventPrefix + "Successfully set the Spectator location for " + tournament.getName() + ".");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully set the Spectator location for " + tournament.getName() + ".");
                     } else {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "That event isn't a tournament!!");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "That event isn't a tournament!!");
                     }
                 } else if (args[0].equalsIgnoreCase("setPos1")) {
                     String tournamentName = args[1];
@@ -248,7 +248,7 @@ public class Commands implements CommandExecutor {
                     try {
                         event = GeneralMethods.getEvent(tournamentName);
                     } catch (Exception e) {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "There is no event by that name.");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by that name.");
                         e.printStackTrace();
                     }
 
@@ -260,9 +260,9 @@ public class Commands implements CommandExecutor {
                         Location pSenderLoc = pSender.getLocation();
 
                         tournament.setPos1(pSenderLoc);
-                        sender.sendMessage(GeneralMethods.eventPrefix + "Successfully set the Pos1 location for " + tournament.getName() + ".");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully set the Pos1 location for " + tournament.getName() + ".");
                     } else {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "That event isn't a tournament!!");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "That event isn't a tournament!!");
                     }
                 } else if (args[0].equalsIgnoreCase("setPos2")) {
                     String tournamentName = args[1];
@@ -270,7 +270,7 @@ public class Commands implements CommandExecutor {
                     try {
                         event = GeneralMethods.getEvent(tournamentName);
                     } catch (Exception e) {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "There is no event by that name.");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by that name.");
                         e.printStackTrace();
                     }
 
@@ -282,9 +282,9 @@ public class Commands implements CommandExecutor {
                         Location pSenderLoc = pSender.getLocation();
 
                         tournament.setPos2(pSenderLoc);
-                        sender.sendMessage(GeneralMethods.eventPrefix + "Successfully set the Pos2 location for " + tournament.getName() + ".");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully set the Pos2 location for " + tournament.getName() + ".");
                     } else {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "That event isn't a tournament!!");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "That event isn't a tournament!!");
                     }
                 } else if (args[0].equalsIgnoreCase("tp")) {
                     // /tournament   tp    <tourny>   <player>    [pos1|pos2|spectator]
@@ -294,7 +294,7 @@ public class Commands implements CommandExecutor {
                     try {
                         event = GeneralMethods.getEvent(tournamentName);
                     } catch (Exception e) {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "There is no event by that name.");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by that name.");
                         e.printStackTrace();
                     }
 
@@ -303,27 +303,27 @@ public class Commands implements CommandExecutor {
                         if (args.length == 4) {
                             try {
                                 Player player = Bukkit.getPlayer(args[1]);
-                                sender.sendMessage(GeneralMethods.eventPrefix + "args[0]:" + args[0] + " args[1]: " + args[1] + " args[2]: " + args[2] + " args[3]: " + args[3]);
+                                sender.sendMessage(GeneralMethods.getEventsPrefix() + "args[0]:" + args[0] + " args[1]: " + args[1] + " args[2]: " + args[2] + " args[3]: " + args[3]);
 
                                 if (args[3].equalsIgnoreCase("pos1")) {
                                     player.teleport(tournament.getPos1());
-                                    sender.sendMessage(GeneralMethods.eventPrefix + "Successfully sent player to Pos1.");
+                                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully sent player to Pos1.");
                                 } else if (args[3].equalsIgnoreCase("pos2")) {
                                     player.teleport(tournament.getPos2());
-                                    sender.sendMessage(GeneralMethods.eventPrefix + "Successfully sent player to Pos2.");
+                                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully sent player to Pos2.");
                                 } else if (args[3].equalsIgnoreCase("spectator")) {
                                     player.teleport(tournament.getSpectator());
-                                    sender.sendMessage(GeneralMethods.eventPrefix + "Successfully sent player to spectator area.");
+                                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully sent player to spectator area.");
                                 } else {
-                                    sender.sendMessage(GeneralMethods.eventPrefix + "Valid Usage: /tournament tp <tourny> <player> <pos1|pos2|spectator>");
+                                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Valid Usage: /tournament tp <tourny> <player> <pos1|pos2|spectator>");
                                 }
                             } catch (Exception e) {
-                                sender.sendMessage(GeneralMethods.eventPrefix + "Something went wrong... is the right player name?");
+                                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Something went wrong... is the right player name?");
                                 e.printStackTrace();
                             }
                         }
                     } else {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "That event isn't a tournament!!");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "That event isn't a tournament!!");
                     }
                 } else if (args[0].equalsIgnoreCase("tphere")) {
                     String tournamentName = args[1];
@@ -331,7 +331,7 @@ public class Commands implements CommandExecutor {
                     try {
                         event = GeneralMethods.getEvent(tournamentName);
                     } catch (Exception e) {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "There is no event by that name.");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "There is no event by that name.");
                         e.printStackTrace();
                     }
 
@@ -348,26 +348,26 @@ public class Commands implements CommandExecutor {
                                 for (EventPlayer player : tPlayers) {
                                     player.getPlayer().teleport(pSenderLoc);
                                 }
-                                sender.sendMessage(GeneralMethods.eventPrefix + "Successfully teleported all players to your location.");
+                                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully teleported all players to your location.");
                             } else {
                                 try {
                                     Player player = Bukkit.getPlayer(args[1]);
                                     if (tPlayers.contains(player)) {
                                         player.teleport(pSenderLoc);
-                                        sender.sendMessage(GeneralMethods.eventPrefix + "Successfully teleported player to your location.");
+                                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully teleported player to your location.");
                                     } else {
-                                        sender.sendMessage(GeneralMethods.eventPrefix + "That player isn't apart of the tournament...");
+                                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "That player isn't apart of the tournament...");
                                     }
                                 } catch (Exception e) {
-                                    sender.sendMessage(GeneralMethods.eventPrefix + "Something went wrong... is that the right player name?");
+                                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Something went wrong... is that the right player name?");
                                     e.printStackTrace();
                                 }
                             }
                         } else {
-                            sender.sendMessage(GeneralMethods.eventPrefix + "Valid Usage: /tournament tphere <tourny> <player|all>");
+                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Valid Usage: /tournament tphere <tourny> <player|all>");
                         }
                     } else {
-                        sender.sendMessage(GeneralMethods.eventPrefix + "That event isn't a tournament!!");
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "That event isn't a tournament!!");
                     }
                 } else /* HELP */ {
                 /*
@@ -383,7 +383,7 @@ public class Commands implements CommandExecutor {
                     /tournament tp <tourny> <player> [pos1|pos2|spectator]
                     /tournament tphere <tourny> <player|all>
                  */
-                    sender.sendMessage(GeneralMethods.eventPrefix + "Command list for /tournament:");
+                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Command list for /tournament:");
                     sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/tournament start <name>");
                     sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/tournament end <tourny>");
                     sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/tournament list [-p <tourny>]");
@@ -397,7 +397,7 @@ public class Commands implements CommandExecutor {
                     sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/tournament tphere <tourny> <player|all>");
                 }
             } else {
-                sender.sendMessage(GeneralMethods.eventPrefix + "Command list for /tournament:");
+                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Command list for /tournament:");
                 sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/tournament start <name>");
                 sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/tournament end <tourny>");
                 sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/tournament list [-p <tourny>]");
@@ -411,7 +411,7 @@ public class Commands implements CommandExecutor {
                 sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/tournament tphere <tourny> <player|all>");
             }
         } else {
-            sender.sendMessage(GeneralMethods.eventPrefix + "These commands can only be executed by a player.");
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "These commands can only be executed by a player.");
         }
         return true;
     }

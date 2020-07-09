@@ -7,7 +7,7 @@ import org.bukkit.command.CommandSender;
 import java.util.ArrayList;
 
 public class GeneralMethods {
-    public static String eventPrefix = ChatColor.GREEN + "[" + ChatColor.BLUE + "DC Events" + ChatColor.GREEN + "]" + ChatColor.YELLOW + " ";
+    private static String eventPrefix = ChatColor.BLUE + "[" + ChatColor.GREEN + "DC Events" + ChatColor.BLUE + "]" + ChatColor.YELLOW + " ";
     public static ArrayList<Event> events = new ArrayList<>();
 
     public static Event getEvent(String name) {
@@ -37,5 +37,9 @@ public class GeneralMethods {
         } else {
             return false;
         }
+    }
+
+    public static String getEventsPrefix() {
+        return eventPrefix;
     }
 }

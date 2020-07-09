@@ -54,9 +54,9 @@ public class Broadcast implements EventSubCommand {
             wordsOfMess[i] = args.get(i);
         }
         if (sender instanceof Player) {
-            Bukkit.getServer().broadcastMessage(GeneralMethods.eventPrefix + ChatColor.translateAlternateColorCodes('&', StringUtils.join(wordsOfMess, ' ')) + " -" + sender.getName());
+            Bukkit.getServer().broadcastMessage(GeneralMethods.getEventsPrefix() + ChatColor.translateAlternateColorCodes('&', StringUtils.join(wordsOfMess, ' ')) + " -" + sender.getName());
         } else {
-            Bukkit.getServer().broadcastMessage(GeneralMethods.eventPrefix + ChatColor.translateAlternateColorCodes('&', StringUtils.join(wordsOfMess, ' ')) + " -Console");
+            Bukkit.getServer().broadcastMessage(GeneralMethods.getEventsPrefix() + ChatColor.translateAlternateColorCodes('&', StringUtils.join(wordsOfMess, ' ')) + " -Console");
         }
     }
 }

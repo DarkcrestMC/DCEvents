@@ -43,7 +43,7 @@ public class List implements EventSubCommand {
     @Override
     public void execute(CommandSender sender, java.util.List<String> args) {
         //  /events list
-        sender.sendMessage(GeneralMethods.eventPrefix + "List of Events:");
+        sender.sendMessage(GeneralMethods.getEventsPrefix() + "List of Events:");
 
         for (Event event : GeneralMethods.getEvents()) {
             sender.sendMessage(ChatColor.GRAY + event.getEventName() + " (" + event.getEventPlayers().size() + ") - " + ChatColor.GREEN + event.getEventStaff());

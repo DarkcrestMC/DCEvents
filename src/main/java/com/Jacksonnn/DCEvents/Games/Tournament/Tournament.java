@@ -14,7 +14,7 @@ public class Tournament extends Event {
     private Location pos2;
     private Event eventSuper;
 
-    public Tournament(String name, String tournamentHost, Location spectator, Location pos1, Location pos2) {
+    public Tournament(String name, Player tournamentHost, Location spectator, Location pos1, Location pos2) {
         //pos in event super is spectator pos -- should be spectator for ALL Event Types.
         super(name, tournamentHost, spectator);
         this.name = name;
@@ -33,7 +33,7 @@ public class Tournament extends Event {
         this.name = name;
     }
 
-    public String getTournamentHost() {
+    public Player getTournamentHost() {
         return super.getEventStaff();
     }
 

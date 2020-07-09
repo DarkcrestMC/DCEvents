@@ -40,8 +40,8 @@ public class Reload implements EventSubCommand {
     @Override
     public void execute(CommandSender sender, List<String> args) {
         ConfigManager.defaultConfig.reload();
-        sender.sendMessage(GeneralMethods.eventPrefix + "Reloaded config.yml.");
+        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Reloaded config.yml.");
         ConfigManager.langConfig.reload();
-        sender.sendMessage(GeneralMethods.eventPrefix + "Reloaded language.yml.");
+        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Reloaded language.yml.");
     }
 }

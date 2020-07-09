@@ -51,7 +51,7 @@ public class Add implements EventSubCommand {
             Event reqEvent = GeneralMethods.getEvent(eventName);
 
             if (reqEvent == null) {
-                sender.sendMessage(GeneralMethods.eventPrefix + "Error! That is not an active event. Check the list to confirm.");
+                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! That is not an active event. Check the list to confirm.");
                 return;
             }
 
@@ -59,7 +59,7 @@ public class Add implements EventSubCommand {
                 reqEvent.addPlayer(sender, player);
             }
         } else {
-            sender.sendMessage(GeneralMethods.eventPrefix + "Error! " + getProperUse());
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + getProperUse());
         }
     }
 }

@@ -99,12 +99,12 @@ public class BlockPartyRunnable extends BukkitRunnable {
         return false;
     }
     private void declareWinners(Player player) {
-        Bukkit.getServer().broadcastMessage(GeneralMethods.eventPrefix + "Congratulations to " + player.getName() +
+        Bukkit.getServer().broadcastMessage(GeneralMethods.getEventsPrefix() + "Congratulations to " + player.getName() +
                 " for winning the " + blockParty.getEventName() + " event!");
         blockParty.remove();
     }
     private void declareWinners(ArrayList<Player> players) {
-        StringBuilder message = new StringBuilder(GeneralMethods.eventPrefix).append("Congratulations to ");
+        StringBuilder message = new StringBuilder(GeneralMethods.getEventsPrefix()).append("Congratulations to ");
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             if (i == 0)
@@ -117,7 +117,7 @@ public class BlockPartyRunnable extends BukkitRunnable {
                 message.append(", ").append(player.getName());
         }
         message.append(" for winning the ").append(blockParty.getEventName()).append(" event!");
-        Bukkit.getServer().broadcastMessage(GeneralMethods.eventPrefix + message.toString());
+        Bukkit.getServer().broadcastMessage(GeneralMethods.getEventsPrefix() + message.toString());
         blockParty.remove();
     }
     private void addColor() {
@@ -176,9 +176,9 @@ public class BlockPartyRunnable extends BukkitRunnable {
         y = corner1.getBlockY();
         World world = corner1.getWorld();
         if (world == null) {
-            Player staff = Bukkit.getPlayer(blockParty.getEventStaff());
+            Player staff = blockParty.getEventStaff();
             if (staff != null)
-                staff.sendMessage(GeneralMethods.eventPrefix +
+                staff.sendMessage(GeneralMethods.getEventsPrefix() +
                         "Error! Somehow, the Block Party event attempted to set its boundaries without a world!");
             blockParty.remove();
             return;
@@ -189,9 +189,9 @@ public class BlockPartyRunnable extends BukkitRunnable {
         int endZ = Math.max(corner1.getBlockZ(), corner2.getBlockZ());
         int size = (endX-startX+1)*(endZ-startZ+1);
         if (size > 128 * 128) {
-            Player staff = Bukkit.getPlayer(blockParty.getEventStaff());
+            Player staff = blockParty.getEventStaff();
             if (staff != null)
-                staff.sendMessage(GeneralMethods.eventPrefix +
+                staff.sendMessage(GeneralMethods.getEventsPrefix() +
                         "Error! The region selected for Block Party is too big! Attempted size: " + size + "");
             blockParty.remove();
             return;
