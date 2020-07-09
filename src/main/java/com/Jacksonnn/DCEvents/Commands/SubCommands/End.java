@@ -53,7 +53,7 @@ public class End implements EventSubCommand {
                 return;
             }
 
-            GeneralMethods.removeEvent(event);
+            event.remove();
             sender.sendMessage(GeneralMethods.eventPrefix + "Successfully terminated the event.");
         } else {
             sender.sendMessage(GeneralMethods.eventPrefix + "Error! " + getProperUse());

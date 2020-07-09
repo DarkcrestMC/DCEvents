@@ -8,6 +8,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
+import java.util.ArrayList;
+
 public class PlayerKillEvent implements Listener {
 
     @EventHandler
@@ -15,9 +17,11 @@ public class PlayerKillEvent implements Listener {
         Player player = e.getEntity();
 
         for (Event event : GeneralMethods.events) {
-            for (EventPlayer eventPlayer : event.getEventPlayers()) {
+            ArrayList<EventPlayer> eventPlayers = event.getEventPlayers();
+            for (int i = 0; i < eventPlayers.size(); i++) {
+                EventPlayer eventPlayer = eventPlayers.get(i);
                 if (eventPlayer.getPlayer() == player) {
-                    event.removePlayer(eventPlayer);
+                    eventPlayers.remove(i--);
                 }
             }
         }

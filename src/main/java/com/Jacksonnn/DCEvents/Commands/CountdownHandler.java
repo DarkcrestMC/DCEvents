@@ -23,7 +23,7 @@ public class CountdownHandler extends BukkitRunnable {
     public void run() {
         if (this.isRunning && this.ticksLeft-- % 20 == 0)
             if (this.ticksLeft <= 0) {
-                Bukkit.broadcastMessage(ChatColor.LIGHT_PURPLE.toString() + ChatColor.MAGIC + " ------ " + ChatColor.RESET + ChatColor.GREEN + ChatColor.BOLD + "GO!" + ChatColor.LIGHT_PURPLE + ChatColor.MAGIC + " ------ ");
+                Bukkit.broadcastMessage(ChatColor.LIGHT_PURPLE.toString() + ChatColor.MAGIC + " ----- " + ChatColor.RESET + ChatColor.GREEN + ChatColor.BOLD + "GO!" + ChatColor.LIGHT_PURPLE + ChatColor.MAGIC + " ----- ");
                 this.isRunning = false;
             } else {
                 String number = ((this.ticksLeft + 1) / 20) + "";

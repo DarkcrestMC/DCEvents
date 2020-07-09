@@ -3,6 +3,7 @@ package com.Jacksonnn.DCEvents.Commands.SubCommands;
 import com.Jacksonnn.DCEvents.Commands.EventSubCommand;
 import com.Jacksonnn.DCEvents.Configuration.ConfigManager;
 import com.Jacksonnn.DCEvents.Event;
+import com.Jacksonnn.DCEvents.Games.BlockParty.BlockParty;
 import com.Jacksonnn.DCEvents.Games.Tournament.Tournament;
 import com.Jacksonnn.DCEvents.GeneralMethods;
 import org.bukkit.Bukkit;
@@ -49,36 +50,53 @@ public class Start implements EventSubCommand {
     @Override
     public void execute(CommandSender sender, List<String> args) {
         //  /events start <eventName> [<type>]
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(GeneralMethods.eventPrefix + "Error! You must be a player to execute this command.");
+            return;
+        }
+        Player player = (Player)sender;
         if (args.size() == 1) {
-            if (sender instanceof Player) {
-                Event event = new Event(args.get(0), sender.getName(), ((Player) sender).getLocation());
-                sender.sendMessage(GeneralMethods.eventPrefix + "Successfully created event, " + event.getEventName() + ", by, " + event.getEventStaff());
-                sender.sendMessage(" ");
-                Bukkit.broadcastMessage(GeneralMethods.eventPrefix + "Now starting event, " + event.getEventName() + ", hosted by, " + event.getEventStaff() + ". -Console");
-            } else {
-                sender.sendMessage(GeneralMethods.eventPrefix + "Error! You must be a player to execute this command.");
-            }
+            Event event = new Event(args.get(0), sender.getName(), ((Player) sender).getLocation());
+            sender.sendMessage(GeneralMethods.eventPrefix + "Successfully created event, " + event.getEventName() + ", by, " + event.getEventStaff());
+            sender.sendMessage(" ");
+            Bukkit.broadcastMessage(GeneralMethods.eventPrefix + "Now starting event, " + event.getEventName() + ", hosted by, " + event.getEventStaff() + ". -Console");
         } else if (args.size() == 2) {
-            if (args.get(1).equalsIgnoreCase("tournament")) {
-                Location spectator = new Location(Bukkit.getServer().getWorld(ConfigManager.defaultConfig.get().getString("Events.Tournament.Spectator.world")),
-                                                  ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Spectator.x"),
-                                                  ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Spectator.y"),
-                                                  ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Spectator.z"));
-                Location pos1 = new Location(Bukkit.getServer().getWorld(ConfigManager.defaultConfig.get().getString("Events.Tournament.Pos1.world")),
-                                                  ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos1.x"),
-                                                  ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos1.y"),
-                                                  ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos1.z"));
-                Location pos2 = new Location(Bukkit.getServer().getWorld(ConfigManager.defaultConfig.get().getString("Events.Tournament.Pos2.world")),
-                                                  ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos2.x"),
-                                                  ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos2.y"),
-                                                  ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos2.z"));
+            String name = args.get(0);
+            String eventType = args.get(1);
+            String staff = player.getName();
 
-                Tournament tournament = new Tournament(args.get(0), sender.getName(), spectator, pos1, pos2);
+            switch (eventType.toLowerCase()) {
+                case "tourney":
+                case "tournament":
+                    Location spectator = new Location(Bukkit.getServer().getWorld(ConfigManager.defaultConfig.get().getString("Events.Tournament.Spectator.world")),
+                            ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Spectator.x"),
+                            ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Spectator.y"),
+                            ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Spectator.z"));
+                    Location pos1 = new Location(Bukkit.getServer().getWorld(ConfigManager.defaultConfig.get().getString("Events.Tournament.Pos1.world")),
+                            ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos1.x"),
+                            ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos1.y"),
+                            ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos1.z"));
+                    Location pos2 = new Location(Bukkit.getServer().getWorld(ConfigManager.defaultConfig.get().getString("Events.Tournament.Pos2.world")),
+                            ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos2.x"),
+                            ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos2.y"),
+                            ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos2.z"));
 
-                sender.sendMessage(GeneralMethods.eventPrefix + "Successfully created event, " + tournament.getEventName() + ", by, " + tournament.getEventStaff());
-                sender.sendMessage(" ");
-                Bukkit.broadcastMessage(GeneralMethods.eventPrefix + "Now starting event, " + tournament.getEventName() + ", hosted by, " + tournament.getEventStaff() + ". -Console");
+                    new Tournament(name, staff, spectator, pos1, pos2);
+                    break;
+                case "bp":
+                case "block":
+                case "party":
+                case "blockparty":
+                    spectator = player.getLocation();
+                    new BlockParty(name, staff, spectator);
+                    break;
+                default:
+                    sender.sendMessage(GeneralMethods.eventPrefix + "Error! " + eventType + " is not an event type.");
+                    return;
             }
+            sender.sendMessage(GeneralMethods.eventPrefix + "Successfully created event, " + name + ", by, " + staff);
+            sender.sendMessage(" ");
+            Bukkit.broadcastMessage(GeneralMethods.eventPrefix + "Now starting event, " + name + ", hosted by, " + staff + ". -Console");
         } else {
             sender.sendMessage(GeneralMethods.eventPrefix + "Error! " + getProperUse());
         }
