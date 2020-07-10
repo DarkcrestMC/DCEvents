@@ -73,7 +73,7 @@ public class Info implements EventSubCommand {
         }
 
         sender.sendMessage(GeneralMethods.getEventsPrefix() + "Information for the " + ChatColor.BOLD + event.getEventName() + ChatColor.YELLOW + " event:");
-        sender.sendMessage(ChatColor.GRAY + "Event Name: " + ChatColor.GREEN + event.getEventName() + ChatColor.GRAY + " | EventHost: " + ChatColor.GREEN + event.getEventStaff());
+        sender.sendMessage(ChatColor.GRAY + "Event Name: " + ChatColor.GREEN + event.getEventName() + ChatColor.GRAY + " | EventHost: " + ChatColor.GREEN + event.getEventStaff().getName());
         sender.sendMessage(ChatColor.GRAY + "Event Type: " + ChatColor.GREEN + eventType + ChatColor.GRAY + " | Players (" + ChatColor.GREEN + event.getEventPlayers().size() + ChatColor.GRAY + "):");
 
         String eventPlayers = ChatColor.GREEN + " ";

@@ -61,7 +61,7 @@ public class Event {
         EventPlayer player = new EventPlayer(eventPlayers.size() + 1, Bukkit.getPlayer(name));
         eventPlayers.add(player);
         sender.sendMessage(GeneralMethods.getEventsPrefix() + name + " has joined the event, " + this.getEventName() + ".");
-        player.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You have been signed up for the " + getEventName() + " event hosted by " + getEventStaff() + ".");
+        player.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You have been signed up for the " + getEventName() + " event hosted by " + getEventStaff().getName() + ".");
     }
 
     public void addPlayer(CommandSender sender, EventPlayer player) {
@@ -69,7 +69,7 @@ public class Event {
             sender.sendMessage(GeneralMethods.getEventsPrefix() + "Player" + player.getName() + " has already joined the event!");
         } else {
             eventPlayers.add(player);
-            player.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You have been signed up for the " + getEventName() + " event hosted by " + getEventStaff() + ".");
+            player.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You have been signed up for the " + getEventName() + " event hosted by " + getEventStaff().getName() + ".");
         }
     }
 

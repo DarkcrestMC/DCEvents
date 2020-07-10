@@ -64,9 +64,9 @@ public class Start implements EventSubCommand {
                     }
                 }
                 Event event = new Event(args.get(0), player, ((Player) sender).getLocation());
-                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully created event, " + event.getEventName() + ", by, " + event.getEventStaff());
+                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully created event, " + event.getEventName() + ", by, " + event.getEventStaff().getName());
                 sender.sendMessage(" ");
-                Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting event, " + event.getEventName() + ", hosted by, " + event.getEventStaff() + ". -Console");
+                Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting event, " + event.getEventName() + ", hosted by, " + event.getEventStaff().getName() + ". -Console");
             } else {
                 sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! You must be a player to execute this command.");
             }
