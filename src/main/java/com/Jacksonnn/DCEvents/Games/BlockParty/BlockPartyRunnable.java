@@ -104,7 +104,7 @@ public class BlockPartyRunnable extends BukkitRunnable {
         blockParty.remove();
     }
     private void declareWinners(ArrayList<Player> players) {
-        StringBuilder message = new StringBuilder(GeneralMethods.getEventsPrefix()).append("Congratulations to ");
+        StringBuilder message = new StringBuilder("Congratulations to ");
         for (int i = 0; i < players.size(); i++) {
             Player player = players.get(i);
             if (i == 0)
@@ -130,7 +130,7 @@ public class BlockPartyRunnable extends BukkitRunnable {
     private void playSound() {
         float pitch = random.nextFloat() * 1.5f + 0.5f;
         for (Player player : alivePlayers)
-            player.playSound(player.getEyeLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, SoundCategory.VOICE, 0.7f, pitch);
+            player.playSound(player.getEyeLocation(), Sound.BLOCK_NOTE_BLOCK_PLING, SoundCategory.VOICE, 0.4f, pitch);
     }
     private void shuffle() {
 //        float amountToShuffle = (float)blocks.length/LENGTH_OF_SHUFFLE;
