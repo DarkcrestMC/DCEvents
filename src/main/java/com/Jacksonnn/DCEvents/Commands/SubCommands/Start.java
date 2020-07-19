@@ -104,9 +104,9 @@ public class Start implements EventSubCommand {
                     sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + eventType + " is not an event type.");
                     return;
             }
-            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully created event, " + name + ", by, " + staff);
+            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully created event, " + name + ", by, " + staff.getName());
             sender.sendMessage(" ");
-            Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting event, " + name + ", hosted by, " + staff + ". -Console");
+            Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting event, " + name + ", hosted by, " + staff.getName() + ". -Console");
         } else {
             sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + getProperUse());
         }

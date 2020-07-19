@@ -31,6 +31,13 @@ public class GeneralMethods {
         events.remove(e);
     }
 
+    public static void removeAllEvents() {
+        int sentinel = 500;
+        int i = 0;
+        while (!events.isEmpty() && i++ != sentinel)
+            events.get(0).remove();
+    }
+
     public static boolean isTournament(Event e) {
         if (e instanceof Tournament) {
             return true;
