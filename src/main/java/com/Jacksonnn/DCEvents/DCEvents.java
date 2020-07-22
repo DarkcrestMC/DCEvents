@@ -44,6 +44,7 @@ public final class DCEvents extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         Bukkit.getServer().getLogger().info(ChatColor.DARK_AQUA + "DCEvents has been disabled.");
+        GeneralMethods.removeAllEvents();
     }
 
     public static DCEvents getDCEvents() {

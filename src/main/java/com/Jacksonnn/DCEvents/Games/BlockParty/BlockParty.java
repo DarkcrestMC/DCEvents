@@ -54,7 +54,7 @@ public class BlockParty extends Event {
 
     @Override public void remove() {
         super.remove();
-        if (!runnable.isCancelled())
+        if (isRunning)
             runnable.cancel();
     }
 }
