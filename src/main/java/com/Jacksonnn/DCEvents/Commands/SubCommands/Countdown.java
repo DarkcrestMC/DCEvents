@@ -47,12 +47,12 @@ public class Countdown implements EventSubCommand {
     public void execute(CommandSender sender, List<String> args) {
         int num;
         if (args.size() < 1) {
-            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + getProperUse());
+            sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! " + getProperUse());
         }
         try {
             num = Integer.parseInt(args.get(0));
         } catch (NumberFormatException e) {
-            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + args.get(0) + " is not a number!");
+            sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! " + args.get(0) + " is not a number!");
             num = 0;
         }
 

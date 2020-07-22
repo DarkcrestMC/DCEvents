@@ -53,37 +53,37 @@ public class Join implements EventSubCommand {
                 Event reqEvent = GeneralMethods.getEvent(eventName);
 
                 if (reqEvent == null) {
-                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! That is not an active event. Please check list for active events.");
+                    sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! That is not an active event. Please check list for active events.");
                     return;
                 }
 
                 for (EventPlayer ePlayer : reqEvent.getEventPlayers()) {
-                    if (ePlayer == player) {
-                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! You are already apart of this event...");
+                    if (ePlayer.getPlayer() == player) {
+                        sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! You are already apart of this event...");
                         return;
                     }
                 }
 
                 reqEvent.addPlayer(player);
-                sender.sendMessage(GeneralMethods.getEventsPrefix() + "You have joined the " + reqEvent.getEventName() + " event!");
+                sender.sendMessage(GeneralMethods.getSuccessPrefix() + "You have joined the " + reqEvent.getEventName() + " event!");
 
                 Player host = reqEvent.getEventStaff();
 
                 if (host == null || !host.isOnline()) {
                     Bukkit.getServer().getLogger().info(ChatColor.DARK_RED + "<DCEVENTS ERROR>: EventHost is not on to host event. Please end event and create a new instance with an active host.");
                     LocalDateTime timestamp = LocalDateTime.now();
-                    sender.sendMessage(GeneralMethods.getEventsPrefix() + ChatColor.RED + "There has been a big error, please ask a staff member with console access to check logs for \'<DCEVENTS ERROR>\'. Timestamp: " + timestamp.getHour() + " : " + timestamp.getMinute() + " : " + timestamp.getSecond() + ".");
+                    sender.sendMessage(GeneralMethods.getErrorPrefix() + "There has been a big error, please ask a staff member with console access to check logs for \'<DCEVENTS ERROR>\'. Timestamp: " + timestamp.getHour() + " : " + timestamp.getMinute() + " : " + timestamp.getSecond() + ".");
 
-                    Bukkit.broadcast(ChatColor.BLUE + "[" + ChatColor.GREEN + ChatColor.BOLD + "EventHosts" + ChatColor.BLUE + "] " + ChatColor.YELLOW + "Player " + player.getName() + " has joined the " + reqEvent.getEventName() + " event.", "DCCore.AllowEvents");
+                    Bukkit.broadcast(GeneralMethods.getEventsPrefix().replace("DC Events", "EventHosts") + "Player " + player.getName() + " has joined the " + reqEvent.getEventName() + " event.", "DCCore.AllowEvents");
                     return;
                 }
 
                 host.sendMessage(GeneralMethods.getEventsPrefix() + "Player " + player.getName() + " has joined the " + reqEvent.getEventName() + " event.");
             } else {
-                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + getProperUse());
+                sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! " + getProperUse());
             }
         } else {
-            sender.sendMessage(GeneralMethods.getEventsPrefix() + "You must be a player to run this command!");
+            sender.sendMessage(GeneralMethods.getErrorPrefix() + "You must be a player to run this command!");
         }
     }
 }

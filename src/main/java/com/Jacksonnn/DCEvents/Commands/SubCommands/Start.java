@@ -51,7 +51,7 @@ public class Start implements EventSubCommand {
     public void execute(CommandSender sender, List<String> args) {
         //  /events start <eventName> [<type>]
         if (!(sender instanceof Player)) {
-            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! You must be a player to execute this command.");
+            sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! You must be a player to execute this command.");
             return;
         }
         Player player = (Player)sender;
@@ -59,16 +59,16 @@ public class Start implements EventSubCommand {
             if (sender instanceof Player) {
                 for (Event gEvent : GeneralMethods.getEvents()) {
                     if (gEvent.getEventName().equalsIgnoreCase(args.get(0))) {
-                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! There is already an event by this name!");
+                        sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! There is already an event by this name!");
                         return;
                     }
                 }
                 Event event = new Event(args.get(0), player, ((Player) sender).getLocation());
-                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully created event, " + event.getEventName() + ", by, " + event.getEventStaff().getName());
+                sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Successfully created event, " + event.getEventName() + ", by, " + event.getEventStaff().getName());
                 sender.sendMessage(" ");
                 Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting event, " + event.getEventName() + ", hosted by, " + event.getEventStaff().getName() + ". -Console");
             } else {
-                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! You must be a player to execute this command.");
+                sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! You must be a player to execute this command.");
             }
         } else if (args.size() == 2) {
             String name = args.get(0);
@@ -101,14 +101,14 @@ public class Start implements EventSubCommand {
                     new BlockParty(name, staff, spectator);
                     break;
                 default:
-                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + eventType + " is not an event type.");
+                    sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! " + eventType + " is not an event type.");
                     return;
             }
-            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Successfully created event, " + name + ", by, " + staff.getName());
+            sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Successfully created event, " + name + ", by, " + staff.getName());
             sender.sendMessage(" ");
             Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting event, " + name + ", hosted by, " + staff.getName() + ". -Console");
         } else {
-            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + getProperUse());
+            sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! " + getProperUse());
         }
     }
 }
