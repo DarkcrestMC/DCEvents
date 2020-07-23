@@ -3,9 +3,9 @@ package com.Jacksonnn.DCEvents.Commands.SubCommands;
 import com.Jacksonnn.DCEvents.Commands.EventSubCommand;
 import com.Jacksonnn.DCEvents.Configuration.ConfigManager;
 import com.Jacksonnn.DCEvents.GeneralMethods;
+import net.md_5.bungee.api.ChatColor;
 import org.apache.commons.lang.StringUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -54,9 +54,9 @@ public class Broadcast implements EventSubCommand {
             wordsOfMess[i] = args.get(i);
         }
         if (sender instanceof Player) {
-            Bukkit.getServer().broadcastMessage(GeneralMethods.getEventsPrefix() + ChatColor.translateAlternateColorCodes('&', StringUtils.join(wordsOfMess, ' ')) + " -" + sender.getName());
+            Bukkit.getServer().broadcastMessage(GeneralMethods.getEventsPrefix() + ChatColor.translateAlternateColorCodes('&', StringUtils.join(wordsOfMess, ' ')) + GeneralMethods.getEventsAccentColor() + " -" + sender.getName());
         } else {
-            Bukkit.getServer().broadcastMessage(GeneralMethods.getEventsPrefix() + ChatColor.translateAlternateColorCodes('&', StringUtils.join(wordsOfMess, ' ')) + " -Console");
+            Bukkit.getServer().broadcastMessage(GeneralMethods.getEventsPrefix() + ChatColor.translateAlternateColorCodes('&', StringUtils.join(wordsOfMess, ' ')) + GeneralMethods.getEventsAccentColor() + " -Console");
         }
     }
 }
