@@ -47,7 +47,7 @@ public class Event {
     }
 
     public void addPlayer(Player player) {
-        EventPlayer ePlayer = new EventPlayer(eventPlayers.size() + 1, player);
+        this.eventPlayers.add(new EventPlayer(eventPlayers.size() + 1, player));
     }
 
     public void addPlayer(CommandSender sender, String name) {

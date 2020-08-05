@@ -63,7 +63,7 @@ public class Teleport implements EventSubCommand {
             Event reqEvent = GeneralMethods.getEvent(eventName);
 
             if (reqEvent == null) {
-                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! That is not a currently active event.");
+                sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! That is not a currently active event.");
                 return;
             }
 
@@ -86,19 +86,19 @@ public class Teleport implements EventSubCommand {
             TextComponent pos1MSG = new TextComponent("POS1");
             pos1MSG.setColor(ChatColor.BLUE);
             pos1MSG.setBold(true);
-            hereMSG.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] {new TextComponent("Click to tp players to POS1.")}));
+            pos1MSG.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] {new TextComponent("Click to tp players to POS1.")}));
             pos1MSG.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/events teleport pos1 " + reqEvent.getEventName() + " player|all"));
 
             TextComponent pos2MSG = new TextComponent("POS2");
             pos2MSG.setColor(ChatColor.RED);
             pos2MSG.setBold(true);
-            hereMSG.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] {new TextComponent("Click to tp players to POS2.")}));
+            pos2MSG.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] {new TextComponent("Click to tp players to POS2.")}));
             pos2MSG.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/events teleport pos2 " + reqEvent.getEventName() + " player|all"));
 
             TextComponent specMSG = new TextComponent("SPEC");
             specMSG.setColor(ChatColor.GOLD);
             specMSG.setBold(true);
-            hereMSG.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] {new TextComponent("Click to tp players to the spectator area.")}));
+            specMSG.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new TextComponent[] {new TextComponent("Click to tp players to the spectator area.")}));
             specMSG.setClickEvent(new ClickEvent(ClickEvent.Action.SUGGEST_COMMAND, "/events teleport spec " + reqEvent.getEventName() + " player|all"));
 
             base.addExtra(begin);
@@ -123,7 +123,7 @@ public class Teleport implements EventSubCommand {
             Event reqEvent = GeneralMethods.getEvent(eventName);
 
             if (reqEvent == null) {
-                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! That is not a currently active event.");
+                sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! That is not a currently active event.");
                 return;
             }
 
@@ -134,7 +134,7 @@ public class Teleport implements EventSubCommand {
                             Location loc = ((Player) sender).getLocation();
 
                             ePlayer.getPlayer().teleport(loc);
-                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Teleported " + ePlayer.getName() + " to your locaiton.");
+                            sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Teleported " + ePlayer.getName() + " to your locaiton.");
                             ePlayer.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You\'ve been teleported for the " + reqEvent.getEventName() + " event.");
                         }
                     }
@@ -145,13 +145,13 @@ public class Teleport implements EventSubCommand {
                     for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (player.getName().equalsIgnoreCase(playerName)) {
                             player.teleport(((Player) sender).getLocation());
-                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Teleported " + player.getName() + " to your locaiton.");
+                            sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Teleported " + player.getName() + " to your locaiton.");
                             player.sendMessage(GeneralMethods.getEventsPrefix() + "You\'ve been teleported for the " + reqEvent.getEventName() + " event.");
                             errorLog = 0;
                         }
                     }
                     if (errorLog == -1) {
-                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! There is no online player by the name of " + playerName + ".");
+                        sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! There is no online player by the name of " + playerName + ".");
                     }
                 }
             } else if (args.get(0).equalsIgnoreCase("pos1")) {
@@ -163,7 +163,7 @@ public class Teleport implements EventSubCommand {
 
                         for (EventPlayer ePlayer : tournament.getEventPlayers()) {
                             ePlayer.getPlayer().teleport(loc);
-                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Teleported " + ePlayer.getName() + " to POS1.");
+                            sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Teleported " + ePlayer.getName() + " to POS1.");
                             ePlayer.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You\'ve been teleported for the " + reqEvent.getEventName() + " event.");
                         }
                     } else {
@@ -173,17 +173,17 @@ public class Teleport implements EventSubCommand {
                         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                             if (player.getName().equalsIgnoreCase(args.get(2))) {
                                 player.teleport(loc);
-                                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Teleported " + player.getName() + " to POS1.");
+                                sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Teleported " + player.getName() + " to POS1.");
                                 player.sendMessage(GeneralMethods.getEventsPrefix() + "You\'ve been teleported for the " + reqEvent.getEventName() + " event.");
                                 errorLog = 0;
                             }
                         }
                         if (errorLog == -1) {
-                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! There is no online player by the name of " + args.get(2) + ".");
+                            sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! There is no online player by the name of " + args.get(2) + ".");
                         }
                     }
                 } else {
-                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! This command isn\'t applicable to this type of event.");
+                    sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! This command isn\'t applicable to this type of event.");
                 }
             } else if (args.get(0).equalsIgnoreCase("pos2")) {
                 //if is certain type of event...
@@ -194,7 +194,7 @@ public class Teleport implements EventSubCommand {
 
                         for (EventPlayer ePlayer : tournament.getEventPlayers()) {
                             ePlayer.getPlayer().teleport(loc);
-                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Teleported " + ePlayer.getName() + " to POS2.");
+                            sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Teleported " + ePlayer.getName() + " to POS2.");
                             ePlayer.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You\'ve been teleported for the " + reqEvent.getEventName() + " event.");
                         }
                     } else {
@@ -204,17 +204,17 @@ public class Teleport implements EventSubCommand {
                         for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                             if (player.getName().equalsIgnoreCase(args.get(2))) {
                                 player.teleport(loc);
-                                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Teleported " + player.getName() + " to POS2.");
+                                sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Teleported " + player.getName() + " to POS2.");
                                 player.sendMessage(GeneralMethods.getEventsPrefix() + "You\'ve been teleported for the " + reqEvent.getEventName() + " event.");
                                 errorLog = 0;
                             }
                         }
                         if (errorLog == -1) {
-                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! There is no online player by the name of " + args.get(2) + ".");
+                            sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! There is no online player by the name of " + args.get(2) + ".");
                         }
                     }
                 } else {
-                    sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! This command isn\'t applicable to this type of event.");
+                    sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! This command isn\'t applicable to this type of event.");
                 }
             } else if (args.get(0).equalsIgnoreCase("spec")) {
                 if (args.get(2).equalsIgnoreCase("all")) {
@@ -222,7 +222,7 @@ public class Teleport implements EventSubCommand {
 
                     for (EventPlayer ePlayer : reqEvent.getEventPlayers()) {
                         ePlayer.getPlayer().teleport(loc);
-                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Teleported " + ePlayer.getName() + " to SPEC.");
+                        sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Teleported " + ePlayer.getName() + " to SPEC.");
                         ePlayer.getPlayer().sendMessage(GeneralMethods.getEventsPrefix() + "You\'ve been teleported for the " + reqEvent.getEventName() + " event.");
                     }
                 } else {
@@ -232,20 +232,20 @@ public class Teleport implements EventSubCommand {
                     for (Player player : Bukkit.getServer().getOnlinePlayers()) {
                         if (player.getName().equalsIgnoreCase(args.get(2))) {
                             player.teleport(loc);
-                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Teleported " + player.getName() + " to SPEC.");
+                            sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Teleported " + player.getName() + " to SPEC.");
                             player.sendMessage(GeneralMethods.getEventsPrefix() + "You\'ve been teleported for the " + reqEvent.getEventName() + " event.");
                             errorLog = 0;
                         }
                     }
                     if (errorLog == -1) {
-                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! There is no online player by the name of " + args.get(2) + ".");
+                        sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! There is no online player by the name of " + args.get(2) + ".");
                     }
                 }
             } else {
-                sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + getProperUse());
+                sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! " + getProperUse());
             }
         } else {
-            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Error! " + getProperUse());
+            sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! " + getProperUse());
         }
     }
 }

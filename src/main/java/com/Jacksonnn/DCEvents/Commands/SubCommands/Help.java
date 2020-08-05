@@ -43,17 +43,17 @@ public class Help implements EventSubCommand {
     public void execute(CommandSender sender, List<String> args) {
         //  /events help
         sender.sendMessage(GeneralMethods.getEventsPrefix() + "Event Commands: ");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events add <eventName> <player(s)>");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events broadcast <message>");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events countdown <seconds>");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events end <eventName>");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events help");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events info <eventName>");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events list");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events remove <eventName> <player(s)>");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events start <eventName> [<type>]");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events teleport <eventName>");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events reload");
-        sender.sendMessage(org.bukkit.ChatColor.YELLOW + "/events join <eventName>");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events add <eventName> <player(s)>");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events broadcast <message>");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events countdown <seconds>");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events end <eventName>");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events help");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events info <eventName>");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events list");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events remove <eventName> <player(s)>");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events start <eventName> [<type>]");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events teleport <eventName>");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events reload");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events join <eventName>");
     }
 }

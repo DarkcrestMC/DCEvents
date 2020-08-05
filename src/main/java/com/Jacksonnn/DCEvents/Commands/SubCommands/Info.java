@@ -6,7 +6,7 @@ import com.Jacksonnn.DCEvents.Event;
 import com.Jacksonnn.DCEvents.EventPlayer.EventPlayer;
 import com.Jacksonnn.DCEvents.Games.Tournament.Tournament;
 import com.Jacksonnn.DCEvents.GeneralMethods;
-import org.bukkit.ChatColor;
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -72,16 +72,16 @@ public class Info implements EventSubCommand {
             eventType = "Event";
         }
 
-        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Information for the " + ChatColor.BOLD + event.getEventName() + ChatColor.YELLOW + " event:");
-        sender.sendMessage(ChatColor.GRAY + "Event Name: " + ChatColor.GREEN + event.getEventName() + ChatColor.GRAY + " | EventHost: " + ChatColor.GREEN + event.getEventStaff().getName());
-        sender.sendMessage(ChatColor.GRAY + "Event Type: " + ChatColor.GREEN + eventType + ChatColor.GRAY + " | Players (" + ChatColor.GREEN + event.getEventPlayers().size() + ChatColor.GRAY + "):");
+        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Information for the " + ChatColor.BOLD + event.getEventName() + ChatColor.RESET + GeneralMethods.getEventsAccentColor() + " event:");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "Event Name: " + ChatColor.WHITE + event.getEventName() + GeneralMethods.getEventsAccentColor() + " | EventHost: " + ChatColor.WHITE + event.getEventStaff().getName());
+        sender.sendMessage(GeneralMethods.getEventsAccentColor()+ "Event Type: " + ChatColor.WHITE + eventType + GeneralMethods.getEventsAccentColor() + " | Players (" + ChatColor.WHITE + event.getEventPlayers().size() + GeneralMethods.getEventsAccentColor() + "):");
 
-        String eventPlayers = ChatColor.GREEN + " ";
+        String eventPlayers = ChatColor.of("#00A9DB") + " ";
         for (EventPlayer player : event.getEventPlayers()) {
-            eventPlayers += player.getName() + ChatColor.GRAY + ", " + ChatColor.GREEN;
+            eventPlayers += player.getName() + GeneralMethods.getEventsAccentColor() + ", " + ChatColor.of("#00A9DB");
         }
 
-        eventPlayers += ChatColor.BLUE + event.getEventStaff().getName();
+        eventPlayers += ChatColor.of("#EB1749") + " " + ChatColor.BOLD + event.getEventStaff().getName();
 
         sender.sendMessage(eventPlayers);
     }

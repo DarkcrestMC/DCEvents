@@ -46,7 +46,7 @@ public class List implements EventSubCommand {
         sender.sendMessage(GeneralMethods.getEventsPrefix() + "List of Events:");
 
         for (Event event : GeneralMethods.getEvents()) {
-            sender.sendMessage(ChatColor.GRAY + event.getEventName() + " (" + event.getEventPlayers().size() + ") - " + ChatColor.GREEN + event.getEventStaff().getName());
+            sender.sendMessage(GeneralMethods.getEventsAccentColor() + event.getEventName() + " (" + event.getEventPlayers().size() + ") - " + ChatColor.WHITE + event.getEventStaff().getName());
         }
 
     }
