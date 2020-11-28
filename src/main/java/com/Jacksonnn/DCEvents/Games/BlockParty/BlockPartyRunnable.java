@@ -43,6 +43,10 @@ public class BlockPartyRunnable extends BukkitRunnable {
     private ArrayList<Player> winners;
     private Block[] blocks;
     private int y;
+    private int startX;
+    private int startZ;
+    private int endX;
+    private int endZ;
 
 
     private int soundFrequency = 2; // while shuffling, every X ticks, make a sound
@@ -206,7 +210,9 @@ public class BlockPartyRunnable extends BukkitRunnable {
                 alivePlayers.remove(i--);
                 continue;
             }
-            if (alivePlayer.getLocation().getBlockY() < y) {
+            Location location = alivePlayer.getLocation();
+            if (location.getBlockY() < y || location.getBlockX() < startX || location.getBlockX() > endX ||
+                    location.getBlockZ() < startZ || location.getBlockZ() > endZ || location.getBlockY() > location.getBlockY()+9) {
                 alivePlayer.setHealth(0);
                 alivePlayers.remove(i--);
             }
@@ -261,10 +267,10 @@ public class BlockPartyRunnable extends BukkitRunnable {
             blockParty.remove();
             return;
         }
-        int startX = Math.min(corner1.getBlockX(), corner2.getBlockX());
-        int startZ = Math.min(corner1.getBlockZ(), corner2.getBlockZ());
-        int endX = Math.max(corner1.getBlockX(), corner2.getBlockX());
-        int endZ = Math.max(corner1.getBlockZ(), corner2.getBlockZ());
+        startX = Math.min(corner1.getBlockX(), corner2.getBlockX());
+        startZ = Math.min(corner1.getBlockZ(), corner2.getBlockZ());
+        endX = Math.max(corner1.getBlockX(), corner2.getBlockX());
+        endZ = Math.max(corner1.getBlockZ(), corner2.getBlockZ());
         int size = (endX-startX+1)*(endZ-startZ+1);
         if (size > 128 * 128) {
             Player staff = blockParty.getEventStaff();
