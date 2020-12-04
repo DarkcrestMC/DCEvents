@@ -5,12 +5,9 @@ import com.Jacksonnn.DCEvents.Configuration.ConfigManager;
 import com.Jacksonnn.DCEvents.Event;
 import com.Jacksonnn.DCEvents.EventPlayer.EventPlayer;
 import com.Jacksonnn.DCEvents.GeneralMethods;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,11 +54,6 @@ public class Leave implements EventSubCommand {
                         }
                     }
                 }
-                if (i == 0) {
-                    sender.sendMessage(GeneralMethods.getErrorPrefix() + "You aren't apart of any events!");
-                } else {
-                    sender.sendMessage(GeneralMethods.getSuccessPrefix() + "You have been removed from " + i + "event(s).");
-                }
             } else {
                 for (String eventName : args) {
                     for (Event event : GeneralMethods.getEvents()) {
@@ -70,6 +62,8 @@ public class Leave implements EventSubCommand {
                                 if (ePlayer.getName().equalsIgnoreCase(player.getName())) {
                                     event.removePlayer(ePlayer);
                                     i++;
+                                } else {
+                                    sender.sendMessage (GeneralMethods.getErrorPrefix() + "You aren't apart of the event: " + event.getEventName() + ".");
                                 }
                             }
                         }
@@ -79,7 +73,7 @@ public class Leave implements EventSubCommand {
             if (i == 0) {
                 sender.sendMessage(GeneralMethods.getErrorPrefix() + "You aren't apart of any events!");
             } else {
-                sender.sendMessage(GeneralMethods.getSuccessPrefix() + "You have been removed from " + i + "event(s).");
+                sender.sendMessage(GeneralMethods.getSuccessPrefix() + "You have been removed from " + i + (i > 1 ? " events." : " event."));
             }
         } else {
             sender.sendMessage(GeneralMethods.getErrorPrefix() + "You must be a player to run this command!");
