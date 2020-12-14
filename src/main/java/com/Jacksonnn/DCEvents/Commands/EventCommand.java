@@ -12,15 +12,6 @@ import java.util.List;
 
 public class EventCommand implements CommandExecutor {
 
-    //  /dcevents add <event> <player(s)>
-    //  /dcevents remove <event> <player(s)>
-    //  /dcevents startEvent <event>
-    //  /dcevents endEvent <event>
-    //  /dcevents eventList
-    //  /dcevents playerList <event>
-    //  /dcevents broadcast <message>
-    //  /dcevents help
-
     private List<EventSubCommand> subCommands = new ArrayList<>();
     private DCEvents plugin;
 
@@ -42,26 +33,23 @@ public class EventCommand implements CommandExecutor {
         subCommands.add(new Teleport());
         subCommands.add(new Reload());
         subCommands.add(new Join());
+        subCommands.add(new Leave());
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (sender.hasPermission("DCCore.AllowEvents")) {
-            if (args.length >= 1) {
-                for (EventSubCommand subCommand : subCommands) {
-                    if (subCommand.getAliases().contains(args[0]) || subCommand.getName().equalsIgnoreCase(args[0])) {
-                        if (sender.hasPermission(subCommand.getPermission())) {
-                            subCommand.execute(sender, buildArguments(args));
-                        } else {
-                            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Insufficient permission to execute this command. (Step 2)");
-                        }
+        if (args.length >= 1) {
+            for (EventSubCommand subCommand : subCommands) {
+                if (subCommand.getAliases().contains(args[0]) || subCommand.getName().equalsIgnoreCase(args[0])) {
+                    if (sender.hasPermission(subCommand.getPermission())) {
+                        subCommand.execute(sender, buildArguments(args));
+                    } else {
+                        sender.sendMessage(GeneralMethods.getEventsPrefix() + "Insufficient permission to execute this command.");
                     }
                 }
-            } else {
-                new Help().execute(sender, buildArguments(args));
             }
         } else {
-            sender.sendMessage(GeneralMethods.getEventsPrefix() + "Insufficient permission to execute these commands. (Step 1)");
+            new Help().execute(sender, buildArguments(args));
         }
         return true;
     }

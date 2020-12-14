@@ -55,5 +55,6 @@ public class Help implements EventSubCommand {
         sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events teleport <eventName>");
         sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events reload");
         sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events join <eventName>");
+        sender.sendMessage(GeneralMethods.getEventsAccentColor() + "/events leave [eventName]");
     }
 }
