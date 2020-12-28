@@ -32,7 +32,7 @@ public class Leave implements EventSubCommand {
 
     @Override
     public String getDescription() {
-        return ConfigManager.langConfig.get().getString("Events.CommandDescriptions.LeaveCommannd");
+        return ConfigManager.langConfig.get().getString("Events.CommandDescriptions.LeaveCommand");
     }
 
     @Override
@@ -42,41 +42,41 @@ public class Leave implements EventSubCommand {
 
     @Override
     public void execute(CommandSender sender, List<String> args) {
-        if (sender instanceof Player) {
-            Player player = (Player) sender;
-            int i = 0;
-            if (args.size() == 0) {
-                for (Event event : GeneralMethods.getEvents()) {
-                    for (EventPlayer ePlayer : event.getEventPlayers()) {
-                        if (ePlayer.getName().equalsIgnoreCase(player.getName())) {
-                            event.removePlayer(ePlayer);
-                            i++;
-                        }
+        if (!(sender instanceof Player)) {
+            sender.sendMessage("You must be a player to leave an event!");
+            return;
+        }
+        Player player = (Player)sender;
+        boolean removedFromEvent = false;
+        if (args.size() == 0) {
+            for (Event event : GeneralMethods.getEvents()) {
+                for (EventPlayer ePlayer : event.getEventPlayers()) {
+                    if (ePlayer.getPlayer() == player) {
+                        event.removePlayer(ePlayer);
+                        removedFromEvent = true;
+                        break;
                     }
                 }
-            } else {
-                for (String eventName : args) {
-                    for (Event event : GeneralMethods.getEvents()) {
-                        if (event.getEventName().equalsIgnoreCase(eventName)) {
-                            for (EventPlayer ePlayer : event.getEventPlayers()) {
-                                if (ePlayer.getName().equalsIgnoreCase(player.getName())) {
-                                    event.removePlayer(ePlayer);
-                                    i++;
-                                } else {
-                                    sender.sendMessage (GeneralMethods.getErrorPrefix() + "You aren't apart of the event: " + event.getEventName() + ".");
-                                }
+            }
+        } else {
+            for (String eventName : args) {
+                eventName = eventName.toLowerCase();
+                for (Event event : GeneralMethods.getEvents()) {
+                    if (event.getEventName().toLowerCase().equals(eventName)) {
+                        for (EventPlayer ePlayer : event.getEventPlayers()) {
+                            if (ePlayer.getPlayer() == player) {
+                                event.removePlayer(ePlayer);
+                                removedFromEvent = true;
+                                break;
                             }
                         }
                     }
                 }
             }
-            if (i == 0) {
-                sender.sendMessage(GeneralMethods.getErrorPrefix() + "You aren't apart of any events!");
-            } else {
-                sender.sendMessage(GeneralMethods.getSuccessPrefix() + "You have been removed from " + i + (i > 1 ? " events." : " event."));
-            }
-        } else {
-            sender.sendMessage(GeneralMethods.getErrorPrefix() + "You must be a player to run this command!");
+        }
+        if (!removedFromEvent) {
+            if (args.size() == 0) sender.sendMessage(GeneralMethods.getErrorPrefix() + "You are not in an event!");
+            else sender.sendMessage(GeneralMethods.getErrorPrefix() + "You are not in the " + args.get(0) + " event!");
         }
     }
 }
