@@ -64,6 +64,7 @@ public class ConfigManager {
             config.addDefault("Events.CommandDescriptions.Teleport", "Teleports all active players in an event to the executor.");
             config.addDefault("Events.CommandDescriptions.ReloadCommand", "Reloads configuration files into the active instance of the plugin.");
             config.addDefault("Events.CommandDescriptions.JoinCommand", "Allows players to join events.");
+            config.addDefault("Events.CommandDescriptions.LeaveCommand", "Allows players to leave an event they're apart of.");
 
             langConfig.save();
         }
