@@ -12,13 +12,15 @@ commands:
   tournament:
     aliases: [tourny, tourney, btournament, bendingtournament]
 permissions:
-  DCEvents.Player.Join:
+  DCEvents.Player:
     default: true
+    children:
+      DCEvents.Player.Join: true
+      DCEvents.Player.Leave: true
   DCCore.AllowEvents:
     default: op
     children:
       DCCore.broadcast: true
-      DCEvents.Player.Join: true
       DCEvents.Host.AddPlayer: true
       DCEvents.Host.Broadcast: true
       DCEvents.Host.Countdown: true
