@@ -6,7 +6,12 @@ import com.Jacksonnn.DCEvents.Event;
 import com.Jacksonnn.DCEvents.Games.BlockParty.BlockParty;
 import com.Jacksonnn.DCEvents.Games.Tournament.Tournament;
 import com.Jacksonnn.DCEvents.GeneralMethods;
+import net.md_5.bungee.api.chat.ClickEvent;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -56,24 +61,19 @@ public class Start implements EventSubCommand {
         }
         Player player = (Player)sender;
         if (args.size() == 1) {
-            if (sender instanceof Player) {
-                for (Event gEvent : GeneralMethods.getEvents()) {
-                    if (gEvent.getEventName().equalsIgnoreCase(args.get(0))) {
-                        sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! There is already an event by this name!");
-                        return;
-                    }
+            for (Event gEvent : GeneralMethods.getEvents()) {
+                if (gEvent.getEventName().equalsIgnoreCase(args.get(0))) {
+                    sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! There is already an event by this name!");
+                    return;
                 }
-                Event event = new Event(args.get(0), player, ((Player) sender).getLocation());
-                sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Successfully created event, " + event.getEventName() + ", by, " + event.getEventStaff().getName());
-                sender.sendMessage(" ");
-                Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting event, " + event.getEventName() + ", hosted by, " + event.getEventStaff().getName() + ". -Console");
-            } else {
-                sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! You must be a player to execute this command.");
             }
+            Event event = new Event(args.get(0), player, ((Player) sender).getLocation());
+            sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Successfully created event, " + event.getEventName() + ", by, " + event.getEventStaff().getName());
+            sender.sendMessage(" ");
+            Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting event, " + event.getEventName() + ", hosted by, " + event.getEventStaff().getName() + ". -Console");
         } else if (args.size() == 2) {
             String name = args.get(0);
             String eventType = args.get(1);
-            Player staff = player;
 
             switch (eventType.toLowerCase()) {
                 case "tourney":
@@ -91,22 +91,28 @@ public class Start implements EventSubCommand {
                             ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos2.y"),
                             ConfigManager.defaultConfig.get().getDouble("Events.Tournament.Pos2.z"));
 
-                    new Tournament(name, staff, spectator, pos1, pos2);
+                    new Tournament(name, player, spectator, pos1, pos2);
                     break;
                 case "bp":
                 case "block":
                 case "party":
                 case "blockparty":
                     spectator = player.getLocation();
-                    new BlockParty(name, staff, spectator);
+                    new BlockParty(name, player, spectator);
                     break;
                 default:
                     sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! " + eventType + " is not an event type.");
                     return;
             }
-            sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Successfully created event, " + name + ", by, " + staff.getName());
-            sender.sendMessage(" ");
-            Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting event, " + name + ", hosted by, " + staff.getName() + ". -Console");
+//            sender.sendMessage(GeneralMethods.getSuccessPrefix() + "Successfully created event, " + name + ", by, " + staff.getName());
+//            sender.sendMessage(" "); // redundant
+            Bukkit.broadcastMessage(GeneralMethods.getEventsPrefix() + "Now starting " + name + " hosted by " + player.getName() + "!");
+            TextComponent joinText = new TextComponent(ChatColor.DARK_GREEN + "     [ " + ChatColor.GREEN + ChatColor.ITALIC + ChatColor.UNDERLINE + "Click to Join!" + ChatColor.DARK_GREEN + " ]");
+            joinText.setClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "/dce join " + name));
+            joinText.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text(ChatColor.AQUA + "PRO TIP: Type \"/dce join\" to join!")));
+            for (Player p : Bukkit.getOnlinePlayers()) {
+                p.spigot().sendMessage(joinText);
+            }
         } else {
             sender.sendMessage(GeneralMethods.getErrorPrefix() + "Error! " + getProperUse());
         }
